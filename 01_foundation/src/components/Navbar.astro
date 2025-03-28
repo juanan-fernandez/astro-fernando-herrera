@@ -2,11 +2,23 @@
 const navTitle = 'Navigation'
 ---
 
-<span>{navTitle}</span>
-<nav>
-	<a href='/'>Home Page</a>
-	<a href='/about'>About Page</a>
-	<a href='/contact'>Contact Page</a>
-</nav>
-
+<div class='navbar'>
+	<span>{navTitle}</span>
+	<nav>
+		<a href='/'>Home Page</a>
+		<a href='/about'>About Page</a>
+		<a href='/contact'>Contact Page</a>
+	</nav>
+</div>
 <hr />
+
+<style>
+	nav {
+		display: flex;
+		justify-content: left;
+		gap: 1rem;
+	}
+	.navbar {
+		margin-left: 1rem;
+	}
+</style>

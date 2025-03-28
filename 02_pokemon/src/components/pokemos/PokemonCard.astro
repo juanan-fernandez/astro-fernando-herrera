@@ -1,0 +1,20 @@
+---
+type PokemonCardProps = {
+	name: string
+	url: string
+}
+const { name, url } = Astro.props as PokemonCardProps
+const pokemonId = url.split('/')[6]
+---
+
+<div class='flex flex-col justify-center items-center'>
+	<img
+		src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
+		alt={name}
+		class='w-32 h-32'
+	/>
+
+	<a href={url} class='text-slate-200 hover:text-white capitalize'>
+		{name}
+	</a>
+</div>

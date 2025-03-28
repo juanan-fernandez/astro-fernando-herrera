@@ -1,0 +1,27 @@
+---
+import type { PokemonsResponse } from '../interfaces/pokemon.type.ts'
+import '../styles/global.css'
+type LayoutProps = {
+	title: string
+}
+const { title } = Astro.props as LayoutProps
+
+const resp = await fetch('https://pokeapi.co/api/v2/pokemon/')
+const data = (await resp.json()) as PokemonsResponse
+---
+
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='UTF-8' />
+		<meta name='viewport' content='width=device-width' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+		<meta name='generator' content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class='bg-slate-800 text-slate-100 m-auto p-5'>
+		<main class='container mx-auto'>
+			<slot />
+		</main>
+	</body>
+</html>
