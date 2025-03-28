@@ -1,0 +1,19 @@
+---
+import Navbar from '../components/Navbar.astro'
+import Layout from '../layouts/Layout.astro'
+
+const name = 'Astro index'
+---
+
+<Layout title='Home prop'>
+	<h1>Home</h1>
+	My Home page {name}
+	<footer>
+		{new Date().getFullYear()}
+	</footer>
+	<script>
+		const currentYear = new Date().toLocaleTimeString()
+		const footer = document.querySelector('footer') as HTMLElement
+		footer.innerText = `© ${currentYear} `
+	</script>
+</Layout>
