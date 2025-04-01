@@ -1,13 +1,15 @@
 ---
-import type { PokemonsResponse } from '../interfaces/pokemon.type.ts'
+import { ClientRouter } from 'astro:transitions'
+import { siteInfo } from '../globals/siteInfo.ts'
 import '../styles/global.css'
-type LayoutProps = {
-	title: string
-}
-const { title } = Astro.props as LayoutProps
 
-const resp = await fetch('https://pokeapi.co/api/v2/pokemon/')
-const data = (await resp.json()) as PokemonsResponse
+interface Props {
+	title: string
+	description?: string
+	image?: string
+}
+
+const { title = siteInfo.title, description = siteInfo.description, image } = Astro.props
 ---
 
 <!doctype html>
@@ -17,7 +19,18 @@ const data = (await resp.json()) as PokemonsResponse
 		<meta name='viewport' content='width=device-width' />
 		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 		<meta name='generator' content={Astro.generator} />
+
+		<!-- SEO -->
+		<meta name='description' content={description} />
+		<meta name='author' content={'Juanan Fernandez'} />
+
+		<!-- OG Metatags -->
+		<meta property='og:title' content={title} />
+		<meta property='og:description' content={description} />
+		<meta property='og:image' content={image} />
+
 		<title>{title}</title>
+		<ClientRouter />
 	</head>
 	<body class='bg-slate-800 text-slate-100 m-auto p-5'>
 		<main class='container mx-auto'>

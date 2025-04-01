@@ -1,0 +1,16 @@
+	'esto es otra forma de resolver los botones
+	<section class='flex justify-center items-center mt-5'>
+		<a href=`${page.url.prev}`
+			><button
+				class=`rounded-md p-2 w-20  ${page.currentPage===1? 'bg-blue-300 cursor-default':'bg-blue-500 cursor-pointer'}`
+				disabled={page.currentPage === 1}>Ant</button
+			></a
+		>
+		<span class='mx-4 text-sm'>Page {page.currentPage} of {page.lastPage}</span>
+		<a href=`${page.url.next}`
+			><button
+				class=`rounded-md p-2 w-20 ${page.currentPage===page.lastPage? 'bg-blue-300 cursor-default':'bg-blue-500 cursor-pointer'}`
+				disabled={page.currentPage === page.lastPage}>Sig</button
+			></a
+		>
+	</section>

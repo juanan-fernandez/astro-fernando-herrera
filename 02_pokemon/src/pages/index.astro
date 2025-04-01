@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro'
 const pageTitle = 'Pokemon Static'
 
 import type { PokemonsResponse } from '../interfaces/pokemon.type.ts'
-import PokemonCard from '../components/pokemos/PokemonCard.astro'
+import PokemonCard from '@components/pokemons/PokemonCard.astro'
 
 const resp = await fetch('https://pokeapi.co/api/v2/pokemon/')
 const data = (await resp.json()) as PokemonsResponse
@@ -16,7 +16,7 @@ const data = (await resp.json()) as PokemonsResponse
 		{
 			data.results.map(pokemon => (
 				<div class='bg-slate-700 p-4 rounded-lg'>
-					<a href='/pokemons/`${pokemon.name}`' class='no-underline'>
+					<a href={`/pokemons/${pokemon.name}`} class='no-underline'>
 						<PokemonCard name={pokemon.name} url={pokemon.url} />
 					</a>
 				</div>
