@@ -46,3 +46,25 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+<a 
+			href='/' 
+			class='border-b-2 border-transparent hover:text-white dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6'>home</a>
+
+    	<a
+    		href='/pokemons/1'
+    		class='border-b-2 border-transparent hover:text-white dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6'
+    		>Páginas</a
+    	>
+
+    	<a
+    		href='/favorites'
+    		class='border-b-2 border-transparent hover:text-white dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6'
+    		>Favoritos</a
+    	>
+
+    	<a
+    		href='#'
+    		class='border-b-2 border-transparent hover:text-white dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6'
+    		>blog</a
+    	>

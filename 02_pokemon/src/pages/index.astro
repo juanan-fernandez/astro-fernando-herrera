@@ -4,14 +4,15 @@ const pageTitle = 'Pokemon Static'
 
 import type { PokemonsResponse } from '../interfaces/pokemon.type.ts'
 import PokemonCard from '@components/pokemons/PokemonCard.astro'
+import Title from '@components/shared/Title.astro'
 
 const resp = await fetch('https://pokeapi.co/api/v2/pokemon/')
 const data = (await resp.json()) as PokemonsResponse
 ---
 
 <Layout title={pageTitle}>
-	<h1 class='text-3xl'>Listado de Pokemons</h1>
-	<hr />
+	<Title>Listado de Pokemons</Title>
+
 	<section class='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-9'>
 		{
 			data.results.map(pokemon => (

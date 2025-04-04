@@ -2,7 +2,9 @@
 import type { GetStaticPaths } from 'astro'
 import Layout from '../../layouts/Layout.astro'
 import PokemonCard from '@components/pokemons/PokemonCard.astro'
+import Title from '@components/shared/Title.astro'
 import type { PokemonsResponse } from '@interfaces/pokemon.type'
+import { Icon } from 'astro-icon/components'
 
 const { name } = Astro.params
 const { url } = Astro.props
@@ -28,13 +30,65 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths
 ---
 
-<Layout title=`#${pokemonId} ${name}` description=`#${pokemonId} ${name}` image={imgSrc}>
+<Layout title=`#${pokemonId} ${name}` description=` Información sobre el pokemon #${pokemonId} ${name}` image={imgSrc}>
 	<section class='mt-10 mx-10 flex flex-col justify-center items-center'>
-		<div>
-			<a href='#' onclick=' window.history.back()' class='no-underline hover:underline text-blue-400'>Back</a>
-			<h1 class='text-3xl mb-3 capitalize'>{name}</h1>
+		<div class='flex flex-row'>
+			<div class='mb-5'>
+				<a href='#' onclick=' window.history.back()' class='no-underline hover:underline text-blue-400'>Back</a>
+				<Title>{name}</Title>
+			</div>
+			<button id='btn_favorite' class='ml-5' data-name={name} data-id={pokemonId}>
+				<Icon name='heart-full' size={50} class='hidden' />
+				<Icon name='heart-gray' size={50} />
+			</button>
 		</div>
+
 		<PokemonCard name={name} url={url} isBig={true} />
 		<audio src={audioUrl} controls class='mt-5'></audio>
 	</section>
 </Layout>
+
+<script>
+	import type { FavPokemon } from '@interfaces/pokemon.type'
+	import { getFavoritesPokemons, isPokemonFavorite, setFavoritesPokemons } from '@lib/utils'
+
+	document.addEventListener('astro:page-load', () => {
+		const btnFav = document.getElementById('btn_favorite') as HTMLButtonElement
+		//esto es para evitar que se ejecute el script si no existe el boton
+		//esto es porque el astro:page-load se ejecuta en todas las paginas debido a los viewtransitions
+		if (!btnFav) return
+		const id = btnFav.dataset.id
+		const name = btnFav.dataset.name ?? ''
+
+		let favPokemonsArray: FavPokemon[] = getFavoritesPokemons()
+
+		const pokemonExists = isPokemonFavorite(favPokemonsArray, Number(id))
+		if (pokemonExists) {
+			btnFav.children[0].classList.remove('hidden')
+			btnFav.children[1].classList.add('hidden')
+		}
+
+		btnFav.addEventListener('click', () => {
+			//tengo que verificar si el pokemon ya existe en el array
+			if (pokemonExists) {
+				//si existe lo elimino
+				favPokemonsArray = favPokemonsArray.filter(pokemon => pokemon.id !== Number(id))
+				btnFav.children[0].classList.add('hidden')
+				btnFav.children[1].classList.remove('hidden')
+			} else {
+				favPokemonsArray.push({ name, id: Number(id) })
+				btnFav.children[0].classList.remove('hidden')
+				btnFav.children[1].classList.add('hidden')
+			}
+			setFavoritesPokemons(JSON.stringify(favPokemonsArray))
+		})
+	})
+</script>
+
+<style>
+	@reference "tailwindcss";
+	#btn_favorite {
+		@apply hover:animate-pulse;
+		@apply cursor-pointer;
+	}
+</style>

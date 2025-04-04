@@ -9,3 +9,9 @@ export interface Pokemon {
 	name: string
 	url: string
 }
+
+export interface FavPokemon {
+	id: number
+	name: string
+	image?: string
+}

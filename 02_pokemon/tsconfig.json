@@ -5,7 +5,8 @@
 			"@components/*": ["components/*"],
 			"@assets/*": ["assets/*"],
 			"@layouts/*": ["layouts/*"],
-			"@interfaces/*": ["interfaces/*"]
+			"@interfaces/*": ["interfaces/*"],
+			"@lib/*": ["lib/*"]
 		}
 	},
 	"extends": "astro/tsconfigs/strict"
