@@ -37,7 +37,7 @@ export const getStaticPaths = (async () => {
 				<a href='#' onclick=' window.history.back()' class='no-underline hover:underline text-blue-400'>Back</a>
 				<Title>{name}</Title>
 			</div>
-			<button id='btn_favorite' class='ml-5' data-name={name} data-id={pokemonId}>
+			<button id='btn_favorite' class='ml-5' data-name={name} data-id={pokemonId} data-img={imgSrc}>
 				<Icon name='heart-full' size={50} class='hidden' />
 				<Icon name='heart-gray' size={50} />
 			</button>
@@ -76,7 +76,7 @@ export const getStaticPaths = (async () => {
 				btnFav.children[0].classList.add('hidden')
 				btnFav.children[1].classList.remove('hidden')
 			} else {
-				favPokemonsArray.push({ name, id: Number(id) })
+				favPokemonsArray.push({ name, id: Number(id), image: btnFav.dataset.img })
 				btnFav.children[0].classList.remove('hidden')
 				btnFav.children[1].classList.add('hidden')
 			}
