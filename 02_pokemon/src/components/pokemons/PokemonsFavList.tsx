@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { getFavoritesPokemons } from '@lib/utils'
+import { getFavoritesPokemons, removeFavoritePokemon, setFavoritesPokemons } from '@lib/utils'
 import type { FavPokemon } from '@interfaces/pokemon.type'
+import { PokemonFavItem } from './PokemonFavItem'
 
 export function PokemonsFavList() {
 	const [favorites, setFavorites] = useState([] as FavPokemon[])
@@ -10,13 +11,16 @@ export function PokemonsFavList() {
 		setFavorites(favPokemons)
 	}, [])
 
+	const handleDelete = (pokemonId: number) => {
+		const updatedFavorites = removeFavoritePokemon(pokemonId, favorites)
+		setFavorites(updatedFavorites)
+		setFavoritesPokemons(JSON.stringify(updatedFavorites))
+	}
+
 	return (
-		<div className='grid grid-cols-2 sm:grid-cols-4 gap-4'>
+		<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6'>
 			{favorites.map(pokemon => (
-				<div key={pokemon.id} className='flex flex-col items-center'>
-					<img src={pokemon.image} alt={pokemon.name} className='w-24 h-24 object-cover rounded-full' />
-					<p className='text-center'>{pokemon.name}</p>
-				</div>
+				<PokemonFavItem key={pokemon.id} pokemon={pokemon} deleteFav={handleDelete} />
 			))}
 		</div>
 	)
