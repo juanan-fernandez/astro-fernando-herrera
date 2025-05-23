@@ -1,7 +1,8 @@
 @import 'tailwindcss';
-@reference "tailwindcss";
+
 html {
-	@apply bg-gray-900 px-10;
+	@apply bg-gray-800 px-10;
+	scroll-behavior: smooth;
 }
 
 body {

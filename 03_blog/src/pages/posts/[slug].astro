@@ -1,0 +1,68 @@
+---
+import Blog from '@layouts/Blog.astro'
+import { Image } from 'astro:assets'
+import { getCollection, render } from 'astro:content'
+//import type { GetStaticPaths } from 'astro'
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog')
+	return posts.map(post => ({
+		params: { slug: post.slug },
+		props: { post }
+	}))
+}
+
+const { post } = Astro.props
+const frontmatter = post.data
+const { title, author } = frontmatter
+const { Content, headings } = await render(post)
+---
+
+<Blog frontmatter={frontmatter}>
+	<h3 class='h3'>{title}</h3>
+	<h4 class='text-gray-400 pb-0 mb-0 text-md'>{author}</h4>
+	<Image
+		src={frontmatter.image}
+		alt={title}
+		width={600}
+		height={400}
+		quality={'low'}
+		loading='lazy'
+		class='object-cover m-auto rounded-lg aling-center w-full h-[250px] my-5'
+		transition:name={`${post.slug}-image`}
+	/>
+	<h3>Tabla de contenidos</h3>
+	<ol class='list-decimal'>
+		{
+			headings.map((heading, idx) => (
+				<li>
+					<a href={`#${heading.slug}`} class='text-gray-400 hover:text-gray-200'>
+						{idx + 1} - {heading.text}
+					</a>
+				</li>
+			))
+		}
+	</ol>
+	<Content />
+	<div class='text-gray-400 mt-5'>
+		<a href='#back' class='text-gray-400 hover:text-gray-200'>Volver arriba</a>
+	</div>
+
+	<style>
+		@reference "tailwindcss";
+		ol {
+			list-style: none;
+		}
+		ol li {
+			margin-left: 1.1em;
+		}
+		ol li:before {
+			content: counter(item) '. ';
+			counter-increment: item;
+		}
+		.h3 {
+			margin-bottom: 1px;
+			@apply text-blue-300;
+		}
+	</style>
+</Blog>

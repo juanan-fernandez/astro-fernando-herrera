@@ -11,12 +11,12 @@ import '@styles/blog.css'
 		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 		<meta name='viewport' content='width=device-width' />
 		<meta name='generator' content={Astro.generator} />
-		<title>{frontmatter.title}</title>
+		<title>{frontmatter?.title || title}</title>
 
 		<ClientRouter />
 	</head>
-	<body class='bg-gray-900'>
-		<a href='/'>Home</a>
+	<body class='bg-gray-800'>
+		<a href='/' id='back'>Home</a>
 		<main class='mb-10 max-w-5xl m-auto px-2 py-2'>
 			<slot />
 		</main>

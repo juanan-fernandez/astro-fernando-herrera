@@ -11,7 +11,8 @@
 			"@interfaces/*": ["interfaces/*"],
 			"@lib/*": ["lib/*"],
 			"@styles/*": ["styles/*"],
-			"@utils/*": ["utils/*"]
+			"@utils/*": ["utils/*"],
+			"@images/*": ["assets/images/*"]
 		}
 	}
 }
